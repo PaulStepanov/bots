@@ -1,5 +1,4 @@
-import {addDialogs} from 'dialogs'
-import {intents} from 'intends'
+
 let builder = require('botbuilder');
 let restify=require('restify');
 
@@ -13,10 +12,9 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 let connector = new builder.ConsoleConnector().listen();
 let bot = new builder.UniversalBot(connector);
 
+//Configure bot intends and dialogs
+let intents=require('./saveIntends');
 bot.dialog('/', intents);
 
-//=========================================================
-// Bots Dialogs
-//=========================================================
-
-console.log(dialog);
+let dialog=require('./dialogs');
+console.log(dialog.call(this,bot));

@@ -5,24 +5,26 @@ let builder = require('botbuilder');
 //=========================================================
 const intents = new builder.IntentDialog();
 let address;
-intents.matches(/^save/i,[
+
+
+intents.matches(/^save/i, [
     function (session) {
-        address=session.message.address;
         session.beginDialog('/saveDialog')
     }
 ]);
 
-intents.matches(/^show/i,[
+intents.matches(/^show/i, [
     function (session) {
-        for (let  link of session.userData.data){
+        for (let link of session.userData.links) {
             session.send(link);
         }
     }
 ]);
+
 intents.onDefault([
     function (session, args, next) {
         session.send('hi')
     }
 ]);
 
-module.exports=intents;
+module.exports = intents;
