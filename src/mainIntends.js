@@ -1,4 +1,5 @@
 let builder = require('botbuilder');
+let helpMenu=require('./helpMenu');
 
 //=========================================================
 // Bots Intends
@@ -15,15 +16,21 @@ intents.matches(/^save/i, [
 
 intents.matches(/^show/i, [
     function (session) {
-        for (let link of session.userData.links) {
-            session.send(link);
-        }
+        session.beginDialog('/showLinks')
     }
 ]);
-
+intents.matches(/^help/i, [
+    function (session) {
+        helpMenu(session)
+    }
+]);
+intents.onBegin(session=>{
+    session.send("Hi i'm a link saver bot");
+    helpMenu(session)
+})
 intents.onDefault([
     function (session, args, next) {
-        session.send('hi')
+        session.send("unsporting command, type 'help' to see a list of commands")
     }
 ]);
 
