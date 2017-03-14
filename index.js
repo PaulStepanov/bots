@@ -15,9 +15,9 @@ var connector = new builder.ChatConnector({
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
-//Configure bot intends and dialogs
+//Bootstrap
 let intents=require('./src/saveIntends');
 bot.dialog('/', intents);
 
 let dialog=require('./src/dialogs');
-console.log(dialog.call(this,bot));
+dialog.call(this,bot);
